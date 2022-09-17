@@ -22,8 +22,8 @@ server {
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
     ssl on;
-    ssl_certificate       /root/p1.crt;
-    ssl_certificate_key   /root/p2.key;
+    ssl_certificate       /root/v2rayws/p1.crt;
+    ssl_certificate_key   /root/v2rayws/p2.key;
     ssl_protocols         TLSv1 TLSv1.1 TLSv1.2 TlSv1.3;
     ssl_ciphers           HIGH:!aNULL:!MD5;
     server_name           $do_name;

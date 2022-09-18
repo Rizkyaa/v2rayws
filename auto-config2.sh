@@ -9,7 +9,7 @@ fi
 do_name=$1
 
 yum -y update && yum -y upgrade
-yum -y install epel-release nginx socat curl git curl
+yum -y install epel-release && yum -y install nginx socat curl git curl
 hostnamectl set-hostname $do_name
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)

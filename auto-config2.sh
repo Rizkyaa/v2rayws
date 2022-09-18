@@ -40,7 +40,7 @@ server {
 }
 EOF
 rm -f /etc/v2ray/config.json
-cat <<EOF >>/etc/v2ray/config.json
+cat <<EOF >>/usr/local/etc/v2ray/config.json
 {
   "log": {
     "access": "/var/log/v2ray/access.log",

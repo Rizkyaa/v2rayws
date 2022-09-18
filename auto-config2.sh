@@ -9,11 +9,11 @@ fi
 do_name=$1
 
 yum -y update && yum -y upgrade
-yum -y install nginx socat curl git curl
+yum -y install epel-release nginx socat curl git curl
 hostnamectl set-hostname $do_name
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
-systemctl stop httpd
+systemctl stop nginx
 cat <<EOF >>/etc/nginx/sites-available/ssl
 server {
     listen 16430 ssl default_server;
@@ -80,8 +80,8 @@ cat <<EOF >>/etc/v2ray/config.json
 }
 EOF
 
-systemctl restart httpd
-systemctl enable httpd
+systemctl restart nginx
+systemctl enable nginx
 systemctl restart v2ray
 systemctl enable v2ray
 

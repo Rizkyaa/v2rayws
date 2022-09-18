@@ -11,7 +11,9 @@ do_name=$1
 yum -y update && yum -y upgrade
 yum -y install nginx socat curl git curl
 hostnamectl set-hostname $do_name
-bash <(curl -L -s https://install.direct/go.sh)
+curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+chmod +x install-release.sh
+./install-release.sh
 systemctl stop nginx
 cat <<EOF >>/etc/nginx/sites-available/ssl
 server {

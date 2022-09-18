@@ -8,11 +8,10 @@ fi
 
 do_name=$1
 
-apt-get update && apt-get -y upgrade
-apt-get -y install nginx socat curl
+yum -y update && yum -y upgrade
+yum -y install nginx socat curl git curl
 hostnamectl set-hostname $do_name
 bash <(curl -L -s https://install.direct/go.sh)
-curl https://get.acme.sh | sh
 systemctl stop nginx
 cat <<EOF >>/etc/nginx/sites-available/ssl
 server {

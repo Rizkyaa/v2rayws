@@ -39,7 +39,6 @@ server {
     }
 }
 EOF
-ln -s /etc/nginx/sites-available/ssl /etc/nginx/sites-enabled/
 rm -f /etc/v2ray/config.json
 cat <<EOF >>/etc/v2ray/config.json
 {

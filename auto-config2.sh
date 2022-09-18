@@ -13,7 +13,7 @@ yum -y install nginx socat curl git curl
 hostnamectl set-hostname $do_name
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
-systemctl stop nginx
+systemctl stop httpd
 cat <<EOF >>/etc/nginx/sites-available/ssl
 server {
     listen 16430 ssl default_server;
@@ -80,8 +80,8 @@ cat <<EOF >>/etc/v2ray/config.json
 }
 EOF
 
-systemctl restart nginx
-systemctl enable nginx
+systemctl restart httpd
+systemctl enable httpd
 systemctl restart v2ray
 systemctl enable v2ray
 

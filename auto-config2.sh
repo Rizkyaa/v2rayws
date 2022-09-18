@@ -14,7 +14,7 @@ hostnamectl set-hostname $do_name
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 bash <(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh)
 systemctl stop nginx
-cat <<EOF >>/etc/nginx/sites-available/ssl
+cat <<EOF >>/etc/nginx/nginx.conf
 server {
     listen 16430 ssl default_server;
     listen [::]:16430 ssl default_server;

@@ -1,0 +1,120 @@
+{ // VLESS + WebSocket + TLS
+    "log": {
+        "access": "/var/log/v2ray/access.log",
+        "error": "/var/log/v2ray/error.log",
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 25189,             // ***
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "09d06537-96c9-47b1-97b6-8b97fa8d0955",             // ***
+                        "level": 1,
+                        "alterId": 0
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {
+                "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+        },
+        // [outbound]
+{
+    "protocol": "freedom",
+    "settings": {
+        "domainStrategy": "UseIPv4"
+    },
+    "tag": "force-ipv4"
+},
+{
+    "protocol": "freedom",
+    "settings": {
+        "domainStrategy": "UseIPv6"
+    },
+    "tag": "force-ipv6"
+},
+// {
+//     "protocol": "socks",
+//     "settings": {
+//         "servers": [{
+//             "address": "127.0.0.1",
+//             "port": 40000 //warp socks5 port
+//         }]
+//     },
+//     "tag": "socks5-warp"
+// },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "blocked"
+        }
+    ],
+    "dns": {
+        "servers": [
+            "https+local://8.8.8.8/dns-query",
+            "8.8.8.8",
+            "1.1.1.1",
+            "localhost"
+        ]
+    },
+    "routing": {
+        "domainStrategy": "IPOnDemand",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "0.0.0.0/8",
+                    "10.0.0.0/8",
+                    "100.64.0.0/10",
+                    "127.0.0.0/8",
+                    "169.254.0.0/16",
+                    "172.16.0.0/12",
+                    "192.0.0.0/24",
+                    "192.0.2.0/24",
+                    "192.168.0.0/16",
+                    "198.18.0.0/15",
+                    "198.51.100.0/24",
+                    "203.0.113.0/24",
+                    "::1/128",
+                    "fc00::/7",
+                    "fe80::/10"
+                ],
+                "outboundTag": "blocked"
+            },
+            // [routing-rule]
+// {
+//      "type": "field",
+//      "outboundTag": "force-ipv6",  // force-ipv6 // force-ipv4 // socks5-warp
+//      "domain": ["geosite:google"]  // ***
+// },
+            {
+                "type": "field",
+                "protocol": [
+                    "bittorrent"
+                ],
+                "outboundTag": "blocked"
+            }
+        ]
+    }
+}
